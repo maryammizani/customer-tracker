@@ -21,9 +21,8 @@ public class CustomerDAOImpl implements CustomerDAO {
 	@Autowired
 	private SessionFactory sessionFactory;	
 	
-	// Transactional automatically begins and ends a transaction for the Hibernate code
+	// Transactional is moved to the Service Layer
 	@Override
-	@Transactional
 	public List<Customer> getCustomers() {
 		
 		// Get the current hibernate session
