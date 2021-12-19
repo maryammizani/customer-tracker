@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.demo.springdemo.dao.CustomerDAO;
@@ -34,5 +36,24 @@ public class CustomerController {
 		
 		// Create a list-customers.jsp page under WEB-INF/view
 		return "list-customers";
+	}
+	
+	@GetMapping("/showFormForAdd")
+	public String showFormForAdd(Model iModel) {
+		
+		// Create Model Attribute to bind the form data
+		Customer lCustomer = new Customer();
+		iModel.addAttribute("customer", lCustomer);
+		
+		return "customer-form";  // Returns the jsp file called customer-form
+	}
+	
+	@PostMapping("/saveCustomer") // <form:form action="saveCustomer" modelAttribute="customer" method="POST">
+	public String saveCustomer(@ModelAttribute("customer") Customer iCustomer) {
+		
+		// Save the Customer using our service
+		lCustomerService.saveCustomer(iCustomer);
+		
+		return "redirect:/customer/list"; 
 	}
 }
