@@ -70,4 +70,29 @@ public class CustomerDAOImpl implements CustomerDAO {
 		lQuery.executeUpdate();
 	}
 
+	@Override
+	public List<Customer> searchCustomers(String iSearchName) {
+		// Get Current hibernate session
+		Session lSession = sessionFactory.getCurrentSession();
+				
+		Query lQuery = null;
+        
+        // only search by name if iSearchName is not empty
+        if (iSearchName != null && iSearchName.trim().length() > 0) {
+            // search for firstName or lastName ... case insensitive
+        	lQuery =lSession.createQuery("from Customer where lower(firstName) like :theName or lower(lastName) like :theName", Customer.class);
+        	lQuery.setParameter("theName", "%" + iSearchName.toLowerCase() + "%");
+        }
+        else {
+            // iSearchName is empty ... so just get all customers
+        	lQuery =lSession.createQuery("from Customer", Customer.class);            
+        }
+        
+        // execute query and get result list
+        List<Customer> lCustomers = lQuery.getResultList();
+                
+        // return the results        
+        return lCustomers;		
+	}
+
 }
