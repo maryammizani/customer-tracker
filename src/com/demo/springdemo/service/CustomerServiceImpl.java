@@ -19,8 +19,8 @@ public class CustomerServiceImpl implements CustomerService {
 	// Transactional automatically begins and ends a transaction for the Hibernate code
 	@Override
 	@Transactional
-	public List<Customer> getCustomers() {
-		return lCustomerDao.getCustomers();
+	public List<Customer> getCustomers(int iSortField) {
+		return lCustomerDao.getCustomers(iSortField);
 	}
 
 	@Override

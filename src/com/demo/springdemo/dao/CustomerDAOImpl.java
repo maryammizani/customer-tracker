@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.demo.springdemo.entity.Customer;
+import com.demo.springdemo.util.SortUtils;
 
 // Add @Repository so that Spring can do component scan, find this repository
 // Also to handle the exception translation for us
@@ -23,14 +24,33 @@ public class CustomerDAOImpl implements CustomerDAO {
 	
 	// Transactional is moved to the Service Layer
 	@Override
-	public List<Customer> getCustomers() {
+	public List<Customer> getCustomers(int iSortField) {
 		
 		// Get the current hibernate session
 		Session lSession = sessionFactory.getCurrentSession();
 		
-		// Create a Query .. sort by last name
-		Query<Customer> lQuery = lSession.createQuery("from Customer order by lastName", Customer.class);
-				
+		// determine sort field
+		String lFieldName = null;
+		
+		switch (iSortField) {
+			case SortUtils.FIRST_NAME: 
+				lFieldName = "firstName";
+				break;
+			case SortUtils.LAST_NAME:
+				lFieldName = "lastName";
+				break;
+			case SortUtils.EMAIL:
+				lFieldName = "email";
+				break;
+			default:
+				// if nothing matches the default to sort by lastName
+				lFieldName = "lastName";
+		}
+		
+		// create a query  
+		String lQueryString = "from Customer order by " + lFieldName;
+		Query<Customer> lQuery = lSession.createQuery(lQueryString, Customer.class);
+						
 		// Execute query and get result list
 		List<Customer> lCustomers = lQuery.getResultList();
 		

@@ -5,7 +5,7 @@ import java.util.List;
 import com.demo.springdemo.entity.Customer;
 
 public interface CustomerDAO {
-	public List<Customer> getCustomers();
+	public List<Customer> getCustomers(int iSortField);
 
 	public void saveCustomer(Customer iCustomer);
 
