@@ -73,4 +73,16 @@ public class CustomerController {
 		// Send over to our form
 		return "customer-form"; 
 	}
+	
+	
+	// <c:url var="deleteLink" value="/customer/delete">
+	//	<c:param name="customerId" value="${tempCustomer.id}" />
+	// </c:url>
+	@GetMapping("/delete") 
+	public String deleteCustomer(@RequestParam("customerId") int iId, Model iModel) {
+		
+		// Delete the Customer
+		lCustomerService.deleteCustomer(iId);
+		return "redirect:/customer/list";  
+	}
 }

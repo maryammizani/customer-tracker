@@ -10,4 +10,6 @@ public interface CustomerDAO {
 	public void saveCustomer(Customer iCustomer);
 
 	public Customer getCustomer(int iId);
+
+	public void deleteCustomer(int iId);
 }
