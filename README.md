@@ -99,3 +99,7 @@ Add these 2 files under WebContent/WEB-INF/lib:
 - Create WebContent\WEB-INF\view\list-customers.jsp
 - Right click on the project and run as Server
 
+### Add AspectJ Weaver to be used for AOP Logging:
+- Download aspectjweaver-1.8.13.jar from https://mvnrepository.com/artifact/org.aspectj/aspectjweaver
+- Paste it under WebContent>WEB-INF>lib
+- Enable AspectJ Auto Proxy in spring-mvc-crud-demo-servlet.xml
