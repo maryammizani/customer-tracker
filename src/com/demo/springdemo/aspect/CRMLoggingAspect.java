@@ -33,6 +33,12 @@ public class CRMLoggingAspect {
 	public void before(JoinPoint iJoinPoint) {
 		String lMethodSignature = iJoinPoint.getSignature().toShortString();
 		mLogger.info("======>>> in @Before: calling method: " + lMethodSignature);
+		
+		// Display Method args
+		Object[] lArgs = iJoinPoint.getArgs();
+		for(Object lArg: lArgs) {
+			mLogger.info("======>>> args: " + lArg);
+		}
 	}
 	
 	// Add @AfterRetuning advice
